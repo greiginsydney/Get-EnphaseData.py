@@ -44,7 +44,10 @@ if __name__ == "__main__":
                     'ShowTable' : 0,
                     'primary' : 1
                     })
-                    
+
+                panelMax = 0
+                panelMin = 10000
+
                 for eachPanel in jsonResponse:
                     result['prtg']['result'].append(
                         {'Channel' : eachPanel['serialNumber'],
@@ -55,6 +58,18 @@ if __name__ == "__main__":
                         'ShowChart' : 1,
                         'ShowTable' : 1
                         })
+                    if eachPanel['lastReportWatts'] > panelMax: panelMax = eachPanel['lastReportWatts']
+                    if eachPanel['lastReportWatts'] < panelMin: panelMin = eachPanel['lastReportWatts']
+
+                result['prtg']['result'].append(
+                    {'Channel' : 'panel range',
+                    'Value' : (panelMax - panelMin),
+                    'Unit' : 'Custom',
+                    'CustomUnit' : 'Watts',
+                    'Float' : 0,
+                    'ShowChart' : 0,
+                    'ShowTable' : 0,
+                    })
 
         except requests.exceptions.Timeout as e:
             result = {'prtg': {'text' : 'Remote host timeout error', 'error' : "%s" % str(e)}}
