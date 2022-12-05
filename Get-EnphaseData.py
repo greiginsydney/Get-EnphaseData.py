@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# from *WINDOWS* call as ./Get-EnphaseData.py '{\"host\":\"<IP>\"}'
-# Get-EnphaseProduction\python> &"C:\Program Files (x86)\PRTG Network Monitor\python\python" ./Get-EnphaseData.py '{\"host\":\"http://<IP>\"}'
+# from *WINDOWS* call as python ./Get-EnphaseData.py '{\"host\":\"<IP>"}'
+# Get-EnphaseData\python> &"C:\Program Files (x86)\PRTG Network Monitor\python\python" ./Get-EnphaseData.py '{\"host\":\"http://<IP>"}'
 
 import json
 import re           # for the regex replacement (sub)
@@ -70,6 +70,7 @@ if __name__ == "__main__":
                     'ShowChart' : 0,
                     'ShowTable' : 0,
                     })
+
 
         except requests.exceptions.Timeout as e:
             result = {'prtg': {'text' : 'Remote host timeout error', 'error' : "%s" % str(e)}}
