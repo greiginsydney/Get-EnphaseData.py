@@ -9,6 +9,10 @@ import requests     # for the web call to Enphase
 import sys
 from requests.auth import HTTPDigestAuth
 
+#Customise this with your own credentials:
+username = 'envoy'
+password = '12345'
+
 if __name__ == "__main__":
     try:
         url = ''
@@ -27,7 +31,7 @@ if __name__ == "__main__":
         try:
             response = None
             query = "http://" + url + "/api/v1/production/inverters"
-            response = requests.get(query, timeout=20, auth=HTTPDigestAuth('envoy', '042406'))
+            response = requests.get(query, timeout=20, auth=HTTPDigestAuth(username, password))
             response.raise_for_status() #Throws a HTTPError if we didn't receive a 2xx response
             jsonResponse = json.loads(response.text)
 
